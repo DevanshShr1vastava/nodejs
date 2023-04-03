@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import multer from "multer";
+// import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
@@ -34,39 +34,39 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 app.use(errorControl);
 console.clear();
 /* FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: "public/images",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 10000000,
-  },
-  fileFilter: (req, file, cb) => {
-    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
-      return cb(new Error("please upload an Image file !!"));
-    }
-    cb(null, true);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: "public/images",
+//   filename: function (req, file, cb) {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 10000000,
+//   },
+//   fileFilter: (req, file, cb) => {
+//     if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
+//       return cb(new Error("please upload an Image file !!"));
+//     }
+//     cb(null, true);
+//   },
+// });
 
-// image upload single
-app.post(
-  "/upload",
-  upload.single("image"),
-  (req, res) => {
-    res.send(req.file);
-  },
-  (error, req, res, next) => {
-    res.status(400).send({ error: error });
-  }
-);
+// // image upload single
+// app.post(
+//   "/upload",
+//   upload.single("image"),
+//   (req, res) => {
+//     res.send(req.file);
+//   },
+//   (error, req, res, next) => {
+//     res.status(400).send({ error: error });
+//   }
+// );
 
 /* ROUTES*/
 
